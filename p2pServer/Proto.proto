@@ -1,0 +1,46 @@
+syntax = "proto3";
+package Proto;
+
+message LoginMessage
+{
+	string userName = 1;
+	string password = 2;
+}
+
+message LogoutMessage
+{
+	string userName = 1;
+}
+
+message P2PTranslate
+{
+	string userName = 1;
+}
+
+message Message
+{
+	int32 iMessageType = 1;
+	LoginMessage loginmember = 2;
+	LogoutMessage logoutmember = 3;
+	P2PTranslate translatemessage = 4;
+}
+
+message UserListNode
+{
+	string userName = 1;
+	uint32 ip = 2;
+	uint32 port = 3;
+}
+	
+message ServerToClient
+{
+	int32 iMessageType = 1;
+	UserListNode user = 2;
+}
+
+message P2PMessage
+{
+	int32 iMessageType = 1;
+	int32 iStringLen = 2;         // or IP address
+	uint32 Port = 3;
+}
