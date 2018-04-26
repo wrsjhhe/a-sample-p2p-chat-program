@@ -30,3 +30,4 @@
 *.exe
 *.out
 *.app
+/.vs/p2pClient/v15
