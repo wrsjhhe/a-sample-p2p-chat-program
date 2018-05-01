@@ -25,6 +25,7 @@ message Message
 	P2PTranslate translatemessage = 4;
 }
 
+//每个用户的信息
 message UserListNode
 {
 	string userName = 1;
@@ -32,6 +33,12 @@ message UserListNode
 	uint32 port = 3;
 }
 	
+//用户信息的集合
+message UserList
+{
+	repeated UserListNode userListNode = 1;
+}
+
 message ServerToClient
 {
 	int32 iMessageType = 1;

@@ -1,4 +1,7 @@
 #pragma once
+#include <windows.h>
+#include "Proto.pb.h"
+
 // 定义iMessageType的值
 #define LOGIN 1
 #define LOGOUT 2
@@ -17,3 +20,10 @@
 // 希望此客户端发送一个UDP打洞包
 #define P2PTRASH        103          // 客户端发送的打洞包，接收端应该忽略此消息
 
+#define EXIT_GETERRINFO  //弹出错误信息
+
+
+typedef Proto::UserListNode Node;
+typedef Proto::UserList UserList;
+typedef Proto::Message Message;
+typedef Proto::P2PMessage P2PMessage;

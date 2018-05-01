@@ -1,24 +1,15 @@
 #include <windows.h>
-#include "Proto.pb.h"
 #include "Global.h"
 #include "Exception.h"
+#include "sock.h"
+#include "utils.h"
 #include <iostream>
+
 using namespace std;
 #pragma comment(lib,"ws2_32.lib")
 #pragma disable(warning C4996)
 
-typedef Proto::UserListNode Node;
-typedef std::shared_ptr<Node> NodePtr;
-typedef list<NodePtr> UserList;
-typedef Proto::Message Message;
-typedef Proto::P2PMessage P2PMessage;
-
 UserList ClientList;
-
-USHORT g_nClientPort = 9896;
-USHORT g_nServerPort = SERVER_PORT;
-
-
 
 #define COMMANDMAXC 256
 #define MAXRETRY    5
@@ -29,73 +20,35 @@ char ServerIP[20];
 
 bool RecvedACK;
 
-void InitWinSock()
-{
-	WSADATA wsaData;
-
-	if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0)
-	{
-		printf("Windows sockets 2.2 startup");
-		throw Exception("Windows sockets 2.2 startup");
-	}
-	else {
-		printf("Using %s (Status: %s)\n",
-			wsaData.szDescription, wsaData.szSystemStatus);
-		printf("with API versions %d.%d to %d.%d\n\n",
-			LOBYTE(wsaData.wVersion), HIBYTE(wsaData.wVersion),
-			LOBYTE(wsaData.wHighVersion), HIBYTE(wsaData.wHighVersion));
-	}
-}
-
-SOCKET mksock(int type)
-{
-	SOCKET sock = socket(AF_INET, type, 0);
-	if (sock < 0)
-	{
-		printf("create socket error");
-		throw Exception("");
-	}
-	return sock;
-}
-
 Node GetUser(char *username)
 {
-	for (UserList::iterator UserIterator = ClientList.begin();
-		UserIterator != ClientList.end();
-		++UserIterator)
+	int length = ClientList.userlistnode_size();
+	for (int i = 0; i < length; i++)
 	{
-		if (strcmp(((*UserIterator)->username().c_str()), username) == 0)
-			return *(*UserIterator);
+		if (strcmp(ClientList.userlistnode(i).username().c_str(), username) == 0)
+			return ClientList.userlistnode(i);
 	}
 	throw Exception("not find this user");
 }
 
-void BindSock(SOCKET sock)
-{
-	sockaddr_in sin;
-	sin.sin_addr.S_un.S_addr = INADDR_ANY;
-	sin.sin_family = AF_INET;
-	sin.sin_port = htons(g_nClientPort);
-
-	if (bind(sock, (struct sockaddr*)&sin, sizeof(sin)) < 0)
-		throw Exception("bind error");
-}
 
 //连接到服务器
 void ConnectToServer(SOCKET sock, char *username, char *serverip)
 {
-	sockaddr_in remote;
-	remote.sin_addr.S_un.S_addr = inet_addr(serverip);
-	remote.sin_family = AF_INET;
-	remote.sin_port = htons(g_nServerPort);
+	//远程服务器的地址结构
+	sockaddr_in remote = remote_addr(serverip, SERVER_PORT);
+	//remote.sin_addr.S_un.S_addr = inet_addr(serverip);
+	//remote.sin_family = AF_INET;
+	//remote.sin_port = htons(SERVER_PORT);
 
+	//发送一个登陆命令
 	Message sendbuf;
 	sendbuf.set_imessagetype(LOGIN);
 	sendbuf.mutable_loginmember()->set_username(username);
-	string data;
+	sendCommand(sock,remote,sendbuf);
+	/*string data;
 	sendbuf.SerializeToString(&data);
-
-	sendto(sock, data.c_str(), data.length(), 0, (const sockaddr*)&remote, sizeof(remote));
+	sendto(sock, data.c_str(), data.length(), 0, (const sockaddr*)&remote, sizeof(remote));*/
 
 	int usercount;
 	int fromlen = sizeof(remote);
@@ -140,24 +93,23 @@ void ConnectToServer(SOCKET sock, char *username, char *serverip)
 
 	// 登录到服务端后，接收服务端发来的已经登录的用户的信息
 	cout << "Have " << usercount << " users logined server:" << endl;
-	for (int i = 0; i<usercount; i++)
+
+	char inBuf[sizeof(UserList)];
+	recvfrom(sock, inBuf, sizeof(Node), 0, (sockaddr *)&remote, &fromlen);
+	string inData = inBuf;
+	ClientList.clear_userlistnode();
+	ClientList.ParseFromString(inData);
+
+	int count = ClientList.userlistnode_size();
+	for (int i = 0; i < count; i++)
 	{
-		NodePtr pNode = std::make_shared<Node>();
-
-		char inBuf[sizeof(Node)];
-		recvfrom(sock, inBuf, sizeof(Node), 0, (sockaddr *)&remote, &fromlen);
-		string inData = inBuf;
-		pNode->ParseFromString(inData);
-
-		//recvfrom(sock, (char*)node, sizeof(Node), 0, (sockaddr *)&remote, &fromlen);
-		ClientList.push_back(pNode);
-		cout << "Username:" << pNode->username() << endl;
+		Node node = ClientList.userlistnode(i);
+		cout << "Username:" << node.username() << endl;
 		in_addr tmp;
-		tmp.S_un.S_addr = htonl(pNode->ip());
+		tmp.S_un.S_addr = htonl(node.ip());
 		cout << "UserIP:" << inet_ntoa(tmp) << endl;
-		cout << "UserPort:" << pNode->port() << endl;
+		cout << "UserPort:" << node.port() << endl;
 		cout << "" << endl;
-
 	}
 }
 
@@ -185,14 +137,14 @@ bool SendMessageTo(char *UserName, char *Msg)
 	unsigned int UserIP;
 	unsigned short UserPort;
 	bool FindUser = false;
-	for (UserList::iterator UserIterator = ClientList.begin();
-		UserIterator != ClientList.end();
-		++UserIterator)
+
+	int length = ClientList.userlistnode_size();
+	for (int i = 0; i < length; i++)
 	{
-		if (strcmp(((*UserIterator)->username().c_str()), UserName) == 0)
+		if (strcmp((ClientList.userlistnode(i).username().c_str()), UserName) == 0)
 		{
-			UserIP = (*UserIterator)->ip();
-			UserPort = (*UserIterator)->port();
+			UserIP = ClientList.userlistnode(i).ip();
+			UserPort = ClientList.userlistnode(i).port();
 			FindUser = true;
 		}
 	}
@@ -201,7 +153,7 @@ bool SendMessageTo(char *UserName, char *Msg)
 		return false;
 
 	strcpy_s(realmessage, Msg);
-	for (int i = 0; i<MAXRETRY; i++)
+	for (int i = 0; i < MAXRETRY; i++)
 	{
 		RecvedACK = false;
 
@@ -211,15 +163,16 @@ bool SendMessageTo(char *UserName, char *Msg)
 		remote.sin_port = htons(UserPort);
 		P2PMessage MessageHead;
 		MessageHead.set_imessagetype(P2PMESSAGE);
-		MessageHead.set_istringlen((int)strlen(realmessage) + 1);
+		MessageHead.set_istringlen((int)strlen(realmessage)+1);
 		string data;
 		MessageHead.SerializeToString(&data);
 
 		int isend = sendto(PrimaryUDP, data.c_str(), data.length(), 0, (const sockaddr*)&remote, sizeof(remote));
-		isend = sendto(PrimaryUDP, (const char *)&realmessage, MessageHead.istringlen(), 0, (const sockaddr*)&remote, sizeof(remote));
+
+		isend = sendto(PrimaryUDP, (const char *)&realmessage, strlen(realmessage) + 1, 0, (const sockaddr*)&remote, sizeof(remote));
 
 		// 等待接收线程将此标记修改
-		for (int j = 0; j<10; j++)
+		for (int j = 0; j < 10; j++)
 		{
 			if (RecvedACK)
 				return true;
@@ -233,7 +186,7 @@ bool SendMessageTo(char *UserName, char *Msg)
 		sockaddr_in server;
 		server.sin_addr.S_un.S_addr = inet_addr(ServerIP);
 		server.sin_family = AF_INET;
-		server.sin_port = htons(g_nServerPort);
+		server.sin_port = htons(SERVER_PORT);
 
 		Message transMessage;
 		transMessage.set_imessagetype(P2PTRANS);
@@ -261,18 +214,17 @@ bool SendMessageTo2(char *UserName, char *Message, const char *pIP, USHORT nPort
 	else
 	{
 		bool FindUser = false;
-		for (UserList::iterator UserIterator = ClientList.begin();
-			UserIterator != ClientList.end();
-			++UserIterator)
+
+		int length = ClientList.userlistnode_size();
+		for (int i = 0; i < length; i++)
 		{
-			if (strcmp(((*UserIterator)->username().c_str()), UserName) == 0)
+			if (strcmp((ClientList.userlistnode(i).username().c_str()), UserName) == 0)
 			{
-				UserIP = (*UserIterator)->ip();
-				UserPort = (*UserIterator)->port();
+				UserIP = ClientList.userlistnode(i).ip();
+				UserPort = ClientList.userlistnode(i).port();
 				FindUser = true;
 			}
 		}
-
 		if (!FindUser)
 			return false;
 	}
@@ -289,7 +241,7 @@ bool SendMessageTo2(char *UserName, char *Message, const char *pIP, USHORT nPort
 
 	printf("Send message, %s:%ld -> %s\n", inet_ntoa(remote.sin_addr), ntohs(remote.sin_port), realmessage);
 
-	for (int i = 0; i<MAXRETRY; i++)
+	for (int i = 0; i < MAXRETRY; i++)
 	{
 		RecvedACK = false;
 		string data;
@@ -298,7 +250,7 @@ bool SendMessageTo2(char *UserName, char *Message, const char *pIP, USHORT nPort
 		isend = sendto(PrimaryUDP, (const char *)&realmessage, MessageHead.istringlen(), 0, (const sockaddr*)&remote, sizeof(remote));
 
 		// 等待接收线程将此标记修改
-		for (int j = 0; j<10; j++)
+		for (int j = 0; j < 10; j++)
 		{
 			if (RecvedACK)
 				return true;
@@ -311,9 +263,9 @@ bool SendMessageTo2(char *UserName, char *Message, const char *pIP, USHORT nPort
 
 // 解析命令，暂时只有exit和send命令
 // 新增getu命令，获取当前服务器的所有用户
-void ParseCommand(char * CommandLine)
+void ParseCommand(const char * CommandLine)
 {
-	if (strlen(CommandLine)<4)
+	if (strlen(CommandLine) < 4)
 		return;
 	char Command[10];
 	strncpy_s(Command, CommandLine, 4);
@@ -327,12 +279,12 @@ void ParseCommand(char * CommandLine)
 		sockaddr_in server;
 		server.sin_addr.S_un.S_addr = inet_addr(ServerIP);
 		server.sin_family = AF_INET;
-		server.sin_port = htons(g_nServerPort);
+		server.sin_port = htons(SERVER_PORT);
 
 		string outData;
 		sendbuf.SerializeToString(&outData);
 
-		sendto(PrimaryUDP, outData.c_str() , outData.length(), 0, (const sockaddr *)&server, sizeof(server));
+		sendto(PrimaryUDP, outData.c_str(), outData.length(), 0, (const sockaddr *)&server, sizeof(server));
 		shutdown(PrimaryUDP, 2);
 		closesocket(PrimaryUDP);
 		exit(0);
@@ -412,7 +364,7 @@ void ParseCommand(char * CommandLine)
 		sockaddr_in server;
 		server.sin_addr.S_un.S_addr = inet_addr(ServerIP);
 		server.sin_family = AF_INET;
-		server.sin_port = htons(g_nServerPort);
+		server.sin_port = htons(SERVER_PORT);
 
 		Message sendbuf;
 		sendbuf.set_imessagetype(GETALLUSER);
@@ -514,90 +466,89 @@ DWORD WINAPI RecvThreadProc(LPVOID lpParameter)
 			{
 				throw Exception("Login error\n");
 			}
-
-			ClientList.clear();
+			ClientList.clear_userlistnode();
+			//ClientList.clear();
 
 			cout << "Have " << usercount << " users logined server:" << endl;
-			for (int i = 0; i<usercount; i++)
-			{
-				NodePtr pNode = std::make_unique<Node>();
-				//Node *node = new Node;
-				char inBuf[sizeof(Node)];
-				recvfrom(PrimaryUDP, inBuf, sizeof(Node), 0, (sockaddr *)&remote, &fromlen);
-				//recvfrom(PrimaryUDP, inBuf, sizeof(Node), 0, (sockaddr *)&remote, &fromlen);
-				string inData = inBuf;
-				pNode->ParseFromString(inData);
 
-				//recvfrom(PrimaryUDP, (char*)node, sizeof(Node), 0, (sockaddr *)&remote, &fromlen);
-				
-				cout << "Username:" << pNode->username() << endl;
+			char inBuf[sizeof(UserList)];
+			recvfrom(PrimaryUDP, inBuf, sizeof(Node), 0, (sockaddr *)&remote, &fromlen);
+			string inData = inBuf;
+			ClientList.clear_userlistnode();
+			ClientList.ParseFromString(inData);
+
+			int count = ClientList.userlistnode_size();
+			for (int i = 0; i < count; i++)
+			{
+				Node node = ClientList.userlistnode(i);
+				cout << "Username:" << node.username() << endl;
 				in_addr tmp;
-				tmp.S_un.S_addr = htonl(pNode->ip());
+				tmp.S_un.S_addr = htonl(node.ip());
 				cout << "UserIP:" << inet_ntoa(tmp) << endl;
-				cout << "UserPort:" << pNode->port() << endl;
+				cout << "UserPort:" << node.port() << endl;
 				cout << "" << endl;
-				ClientList.push_back(std::move(pNode));
 			}
+
 			break;
 		}
 		}
 	}
 }
-
-int testNATProp()
-{
-	try
-	{
-		InitWinSock();
-
-		PrimaryUDP = mksock(SOCK_DGRAM);
-		BindSock(PrimaryUDP);
-
-		char szServerIP1[32] = { 0 };
-		char szServerIP2[32] = { 0 };
-
-		cout << "Please input server1 ip:";
-		cin >> szServerIP1;
-
-		cout << "Please input server2 ip:";
-		cin >> szServerIP2;
-
-		sockaddr_in remote1;
-		remote1.sin_addr.S_un.S_addr = inet_addr(szServerIP1);
-		remote1.sin_family = AF_INET;
-		remote1.sin_port = htons(g_nServerPort);
-
-		sockaddr_in remote2;
-		remote2.sin_addr.S_un.S_addr = inet_addr(szServerIP2);
-		remote2.sin_family = AF_INET;
-		remote2.sin_port = htons(g_nServerPort);
-
-		char chData = 'A';
-		int nCount = 0;
-
-		for (;;)
-		{
-			nCount++;
-			printf("send message to: %s:%ld, %ld\n", szServerIP1, g_nServerPort, nCount);
-
-			sendto(PrimaryUDP, (const char*)&chData, sizeof(char), 0, (const sockaddr*)&remote1, sizeof(remote1));
-
-			if (szServerIP2[0] != 'x')
-			{
-				printf("send message to: %s:%ld, %ld\n", szServerIP2, g_nServerPort, nCount);
-				sendto(PrimaryUDP, (const char*)&chData, sizeof(char), 0, (const sockaddr*)&remote2, sizeof(remote2));
-			}
-
-			Sleep(5000);
-		}
-	}
-	catch (Exception &e)
-	{
-		std::cout<< e.GetMessage() <<std::endl;
-		return 1;
-	}
-	return 0;
-}
+//
+//int testNATProp()
+//{
+//	try
+//	{
+//		initWinSock();
+//
+//		PrimaryUDP = mksock(SOCK_DGRAM);
+//		bindSock(PrimaryUDP);
+//
+//		char szServerIP1[32] = { 0 };
+//		char szServerIP2[32] = { 0 };
+//
+//		cout << "Please input server1 ip:";
+//		cin >> szServerIP1;
+//
+//		cout << "Please input server2 ip:";
+//		cin >> szServerIP2;
+//
+//		sockaddr_in remote1;
+//		remote1.sin_addr.S_un.S_addr = inet_addr(szServerIP1);
+//		remote1.sin_family = AF_INET;
+//		remote1.sin_port = htons(SERVER_PORT);
+//
+//		sockaddr_in remote2;
+//		remote2.sin_addr.S_un.S_addr = inet_addr(szServerIP2);
+//		remote2.sin_family = AF_INET;
+//		remote2.sin_port = htons(SERVER_PORT);
+//
+//		char chData = 'A';
+//		int nCount = 0;
+//
+//		for (;;)
+//		{
+//			nCount++;
+//			printf("send message to: %s:%ld, %ld\n", szServerIP1, SERVER_PORT, nCount);
+//
+//			sendto(PrimaryUDP, (const char*)&chData, sizeof(char), 0, (const sockaddr*)&remote1, sizeof(remote1));
+//
+//			if (szServerIP2[0] != 'x')
+//			{
+//				printf("send message to: %s:%ld, %ld\n", szServerIP2, SERVER_PORT, nCount);
+//				sendto(PrimaryUDP, (const char*)&chData, sizeof(char), 0, (const sockaddr*)&remote2, sizeof(remote2));
+//			}
+//
+//			Sleep(5000);
+//		}
+//	}
+//	catch (Exception &e)
+//	{
+//		std::cout << e.GetMessage() << std::endl;
+//		return 1;
+//	}
+//	return 0;
+//}
 
 
 int main(int argc, char* argv[])
@@ -605,47 +556,35 @@ int main(int argc, char* argv[])
 	//	testNATProp();
 	// 	return 0;
 
-	if (argc > 1)
-	{
-		g_nClientPort = atoi(argv[1]);
-	}
-
-	if (argc > 2)
-	{
-		g_nServerPort = atoi(argv[2]);
-	}
-
 	try
 	{
-		InitWinSock();
-
-		cout << "Please input your port:";
-		cin >> g_nClientPort;
+		initWinSock();
 
 		PrimaryUDP = mksock(SOCK_DGRAM);
-		BindSock(PrimaryUDP);
+		bindSock(PrimaryUDP);
 
 		//cout << "Please input server ip:";
 		//cin >> ServerIP;
-		strcpy_s(ServerIP,"192.168.31.137");
+		strcpy_s(ServerIP, "192.168.31.137");
 
 		cout << "Please input your name:";
 		cin >> UserName;
 		//strcpy_s(UserName, "zhangsan");
 
-		
+
 
 		ConnectToServer(PrimaryUDP, UserName, ServerIP);
 
 		HANDLE threadhandle = CreateThread(NULL, 0, RecvThreadProc, NULL, NULL, NULL);
-		
+
 		OutputUsage();
 
 		for (;;)
 		{
 			char Command[COMMANDMAXC];
-			std::cin >> Command;
-			ParseCommand(Command);
+			string str;
+			getline(std::cin, str);
+			ParseCommand(str.c_str());
 		}
 		CloseHandle(threadhandle);
 	}
@@ -654,7 +593,7 @@ int main(int argc, char* argv[])
 		std::cout << e.GetMessage() << std::endl;
 		return 1;
 	}
-	
+
 	return 0;
 }
 

@@ -36,7 +36,7 @@ namespace protobuf_Proto_2eproto {
 struct TableStruct {
   static const ::google::protobuf::internal::ParseTableField entries[];
   static const ::google::protobuf::internal::AuxillaryParseTableField aux[];
-  static const ::google::protobuf::internal::ParseTable schema[7];
+  static const ::google::protobuf::internal::ParseTable schema[8];
   static const ::google::protobuf::internal::FieldMetadata field_metadata[];
   static const ::google::protobuf::internal::SerializationTable serialization_table[];
   static const ::google::protobuf::uint32 offsets[];
@@ -52,6 +52,8 @@ void InitDefaultsMessageImpl();
 void InitDefaultsMessage();
 void InitDefaultsUserListNodeImpl();
 void InitDefaultsUserListNode();
+void InitDefaultsUserListImpl();
+void InitDefaultsUserList();
 void InitDefaultsServerToClientImpl();
 void InitDefaultsServerToClient();
 void InitDefaultsP2PMessageImpl();
@@ -62,6 +64,7 @@ inline void InitDefaults() {
   InitDefaultsP2PTranslate();
   InitDefaultsMessage();
   InitDefaultsUserListNode();
+  InitDefaultsUserList();
   InitDefaultsServerToClient();
   InitDefaultsP2PMessage();
 }
@@ -85,6 +88,9 @@ extern P2PTranslateDefaultTypeInternal _P2PTranslate_default_instance_;
 class ServerToClient;
 class ServerToClientDefaultTypeInternal;
 extern ServerToClientDefaultTypeInternal _ServerToClient_default_instance_;
+class UserList;
+class UserListDefaultTypeInternal;
+extern UserListDefaultTypeInternal _UserList_default_instance_;
 class UserListNode;
 class UserListNodeDefaultTypeInternal;
 extern UserListNodeDefaultTypeInternal _UserListNode_default_instance_;
@@ -679,6 +685,111 @@ class UserListNode : public ::google::protobuf::Message /* @@protoc_insertion_po
 };
 // -------------------------------------------------------------------
 
+class UserList : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:Proto.UserList) */ {
+ public:
+  UserList();
+  virtual ~UserList();
+
+  UserList(const UserList& from);
+
+  inline UserList& operator=(const UserList& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  UserList(UserList&& from) noexcept
+    : UserList() {
+    *this = ::std::move(from);
+  }
+
+  inline UserList& operator=(UserList&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const UserList& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const UserList* internal_default_instance() {
+    return reinterpret_cast<const UserList*>(
+               &_UserList_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    5;
+
+  void Swap(UserList* other);
+  friend void swap(UserList& a, UserList& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline UserList* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  UserList* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const UserList& from);
+  void MergeFrom(const UserList& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(UserList* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated .Proto.UserListNode userListNode = 1;
+  int userlistnode_size() const;
+  void clear_userlistnode();
+  static const int kUserListNodeFieldNumber = 1;
+  const ::Proto::UserListNode& userlistnode(int index) const;
+  ::Proto::UserListNode* mutable_userlistnode(int index);
+  ::Proto::UserListNode* add_userlistnode();
+  ::google::protobuf::RepeatedPtrField< ::Proto::UserListNode >*
+      mutable_userlistnode();
+  const ::google::protobuf::RepeatedPtrField< ::Proto::UserListNode >&
+      userlistnode() const;
+
+  // @@protoc_insertion_point(class_scope:Proto.UserList)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::RepeatedPtrField< ::Proto::UserListNode > userlistnode_;
+  mutable int _cached_size_;
+  friend struct ::protobuf_Proto_2eproto::TableStruct;
+  friend void ::protobuf_Proto_2eproto::InitDefaultsUserListImpl();
+};
+// -------------------------------------------------------------------
+
 class ServerToClient : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:Proto.ServerToClient) */ {
  public:
   ServerToClient();
@@ -714,7 +825,7 @@ class ServerToClient : public ::google::protobuf::Message /* @@protoc_insertion_
                &_ServerToClient_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    5;
+    6;
 
   void Swap(ServerToClient* other);
   friend void swap(ServerToClient& a, ServerToClient& b) {
@@ -823,7 +934,7 @@ class P2PMessage : public ::google::protobuf::Message /* @@protoc_insertion_poin
                &_P2PMessage_default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    6;
+    7;
 
   void Swap(P2PMessage* other);
   friend void swap(P2PMessage& a, P2PMessage& b) {
@@ -1385,6 +1496,40 @@ inline void UserListNode::set_port(::google::protobuf::uint32 value) {
 
 // -------------------------------------------------------------------
 
+// UserList
+
+// repeated .Proto.UserListNode userListNode = 1;
+inline int UserList::userlistnode_size() const {
+  return userlistnode_.size();
+}
+inline void UserList::clear_userlistnode() {
+  userlistnode_.Clear();
+}
+inline const ::Proto::UserListNode& UserList::userlistnode(int index) const {
+  // @@protoc_insertion_point(field_get:Proto.UserList.userListNode)
+  return userlistnode_.Get(index);
+}
+inline ::Proto::UserListNode* UserList::mutable_userlistnode(int index) {
+  // @@protoc_insertion_point(field_mutable:Proto.UserList.userListNode)
+  return userlistnode_.Mutable(index);
+}
+inline ::Proto::UserListNode* UserList::add_userlistnode() {
+  // @@protoc_insertion_point(field_add:Proto.UserList.userListNode)
+  return userlistnode_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::Proto::UserListNode >*
+UserList::mutable_userlistnode() {
+  // @@protoc_insertion_point(field_mutable_list:Proto.UserList.userListNode)
+  return &userlistnode_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::Proto::UserListNode >&
+UserList::userlistnode() const {
+  // @@protoc_insertion_point(field_list:Proto.UserList.userListNode)
+  return userlistnode_;
+}
+
+// -------------------------------------------------------------------
+
 // ServerToClient
 
 // int32 iMessageType = 1;
@@ -1500,6 +1645,8 @@ inline void P2PMessage::set_port(::google::protobuf::uint32 value) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

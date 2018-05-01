@@ -1,54 +1,15 @@
 ﻿  p2pClient.cpp
 c:\users\36584\source\repos\p2pclient\a-sample-p2p-chat-program\p2pclient\google\protobuf\wire_format_lite.h(863): warning C4146: 一元负运算符应用于无符号类型，结果仍为无符号类型
 c:\users\36584\source\repos\p2pclient\a-sample-p2p-chat-program\p2pclient\google\protobuf\wire_format_lite.h(874): warning C4146: 一元负运算符应用于无符号类型，结果仍为无符号类型
-c:\users\36584\source\repos\p2pclient\a-sample-p2p-chat-program\p2pclient\p2pclient.cpp(8): warning C4068: 未知的杂注
-c:\users\36584\source\repos\p2pclient\a-sample-p2p-chat-program\p2pclient\p2pclient.cpp(98): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
-c:\users\36584\source\repos\p2pclient\a-sample-p2p-chat-program\p2pclient\p2pclient.cpp(112): warning C4244: “初始化”: 从“SOCKET”转换到“int”，可能丢失数据
-c:\users\36584\source\repos\p2pclient\a-sample-p2p-chat-program\p2pclient\p2pclient.cpp(218): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
-c:\users\36584\source\repos\p2pclient\a-sample-p2p-chat-program\p2pclient\p2pclient.cpp(244): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
-c:\users\36584\source\repos\p2pclient\a-sample-p2p-chat-program\p2pclient\p2pclient.cpp(297): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
-c:\users\36584\source\repos\p2pclient\a-sample-p2p-chat-program\p2pclient\p2pclient.cpp(335): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
-c:\users\36584\source\repos\p2pclient\a-sample-p2p-chat-program\p2pclient\p2pclient.cpp(422): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
-c:\users\36584\source\repos\p2pclient\a-sample-p2p-chat-program\p2pclient\p2pclient.cpp(463): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
-c:\users\36584\source\repos\p2pclient\a-sample-p2p-chat-program\p2pclient\p2pclient.cpp(486): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
-  Proto.pb.cc
-c:\users\36584\source\repos\p2pclient\a-sample-p2p-chat-program\p2pclient\google\protobuf\wire_format_lite.h(863): warning C4146: 一元负运算符应用于无符号类型，结果仍为无符号类型
-c:\users\36584\source\repos\p2pclient\a-sample-p2p-chat-program\p2pclient\google\protobuf\wire_format_lite.h(874): warning C4146: 一元负运算符应用于无符号类型，结果仍为无符号类型
-  正在生成代码...
-libprotobufd.lib(arena.obj) : warning LNK4099: 未找到 PDB“libprotobuf.pdb”(使用“libprotobufd.lib(arena.obj)”或在“C:\Users\36584\source\repos\p2pClient\a-sample-p2p-chat-program\x64\Debug\libprotobuf.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-libprotobufd.lib(extension_set.obj) : warning LNK4099: 未找到 PDB“libprotobuf.pdb”(使用“libprotobufd.lib(extension_set.obj)”或在“C:\Users\36584\source\repos\p2pClient\a-sample-p2p-chat-program\x64\Debug\libprotobuf.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-libprotobufd.lib(generated_message_util.obj) : warning LNK4099: 未找到 PDB“libprotobuf.pdb”(使用“libprotobufd.lib(generated_message_util.obj)”或在“C:\Users\36584\source\repos\p2pClient\a-sample-p2p-chat-program\x64\Debug\libprotobuf.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-libprotobufd.lib(coded_stream.obj) : warning LNK4099: 未找到 PDB“libprotobuf.pdb”(使用“libprotobufd.lib(coded_stream.obj)”或在“C:\Users\36584\source\repos\p2pClient\a-sample-p2p-chat-program\x64\Debug\libprotobuf.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-libprotobufd.lib(zero_copy_stream.obj) : warning LNK4099: 未找到 PDB“libprotobuf.pdb”(使用“libprotobufd.lib(zero_copy_stream.obj)”或在“C:\Users\36584\source\repos\p2pClient\a-sample-p2p-chat-program\x64\Debug\libprotobuf.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-libprotobufd.lib(zero_copy_stream_impl_lite.obj) : warning LNK4099: 未找到 PDB“libprotobuf.pdb”(使用“libprotobufd.lib(zero_copy_stream_impl_lite.obj)”或在“C:\Users\36584\source\repos\p2pClient\a-sample-p2p-chat-program\x64\Debug\libprotobuf.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-libprotobufd.lib(message_lite.obj) : warning LNK4099: 未找到 PDB“libprotobuf.pdb”(使用“libprotobufd.lib(message_lite.obj)”或在“C:\Users\36584\source\repos\p2pClient\a-sample-p2p-chat-program\x64\Debug\libprotobuf.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-libprotobufd.lib(repeated_field.obj) : warning LNK4099: 未找到 PDB“libprotobuf.pdb”(使用“libprotobufd.lib(repeated_field.obj)”或在“C:\Users\36584\source\repos\p2pClient\a-sample-p2p-chat-program\x64\Debug\libprotobuf.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-libprotobufd.lib(atomicops_internals_x86_msvc.obj) : warning LNK4099: 未找到 PDB“libprotobuf.pdb”(使用“libprotobufd.lib(atomicops_internals_x86_msvc.obj)”或在“C:\Users\36584\source\repos\p2pClient\a-sample-p2p-chat-program\x64\Debug\libprotobuf.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-libprotobufd.lib(common.obj) : warning LNK4099: 未找到 PDB“libprotobuf.pdb”(使用“libprotobufd.lib(common.obj)”或在“C:\Users\36584\source\repos\p2pClient\a-sample-p2p-chat-program\x64\Debug\libprotobuf.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-libprotobufd.lib(int128.obj) : warning LNK4099: 未找到 PDB“libprotobuf.pdb”(使用“libprotobufd.lib(int128.obj)”或在“C:\Users\36584\source\repos\p2pClient\a-sample-p2p-chat-program\x64\Debug\libprotobuf.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-libprotobufd.lib(io_win32.obj) : warning LNK4099: 未找到 PDB“libprotobuf.pdb”(使用“libprotobufd.lib(io_win32.obj)”或在“C:\Users\36584\source\repos\p2pClient\a-sample-p2p-chat-program\x64\Debug\libprotobuf.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-libprotobufd.lib(once.obj) : warning LNK4099: 未找到 PDB“libprotobuf.pdb”(使用“libprotobufd.lib(once.obj)”或在“C:\Users\36584\source\repos\p2pClient\a-sample-p2p-chat-program\x64\Debug\libprotobuf.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-libprotobufd.lib(status.obj) : warning LNK4099: 未找到 PDB“libprotobuf.pdb”(使用“libprotobufd.lib(status.obj)”或在“C:\Users\36584\source\repos\p2pClient\a-sample-p2p-chat-program\x64\Debug\libprotobuf.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-libprotobufd.lib(stringpiece.obj) : warning LNK4099: 未找到 PDB“libprotobuf.pdb”(使用“libprotobufd.lib(stringpiece.obj)”或在“C:\Users\36584\source\repos\p2pClient\a-sample-p2p-chat-program\x64\Debug\libprotobuf.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-libprotobufd.lib(stringprintf.obj) : warning LNK4099: 未找到 PDB“libprotobuf.pdb”(使用“libprotobufd.lib(stringprintf.obj)”或在“C:\Users\36584\source\repos\p2pClient\a-sample-p2p-chat-program\x64\Debug\libprotobuf.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-libprotobufd.lib(structurally_valid.obj) : warning LNK4099: 未找到 PDB“libprotobuf.pdb”(使用“libprotobufd.lib(structurally_valid.obj)”或在“C:\Users\36584\source\repos\p2pClient\a-sample-p2p-chat-program\x64\Debug\libprotobuf.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-libprotobufd.lib(strutil.obj) : warning LNK4099: 未找到 PDB“libprotobuf.pdb”(使用“libprotobufd.lib(strutil.obj)”或在“C:\Users\36584\source\repos\p2pClient\a-sample-p2p-chat-program\x64\Debug\libprotobuf.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-libprotobufd.lib(wire_format_lite.obj) : warning LNK4099: 未找到 PDB“libprotobuf.pdb”(使用“libprotobufd.lib(wire_format_lite.obj)”或在“C:\Users\36584\source\repos\p2pClient\a-sample-p2p-chat-program\x64\Debug\libprotobuf.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-libprotobufd.lib(any.obj) : warning LNK4099: 未找到 PDB“libprotobuf.pdb”(使用“libprotobufd.lib(any.obj)”或在“C:\Users\36584\source\repos\p2pClient\a-sample-p2p-chat-program\x64\Debug\libprotobuf.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-libprotobufd.lib(descriptor.obj) : warning LNK4099: 未找到 PDB“libprotobuf.pdb”(使用“libprotobufd.lib(descriptor.obj)”或在“C:\Users\36584\source\repos\p2pClient\a-sample-p2p-chat-program\x64\Debug\libprotobuf.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-libprotobufd.lib(descriptor.pb.obj) : warning LNK4099: 未找到 PDB“libprotobuf.pdb”(使用“libprotobufd.lib(descriptor.pb.obj)”或在“C:\Users\36584\source\repos\p2pClient\a-sample-p2p-chat-program\x64\Debug\libprotobuf.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-libprotobufd.lib(descriptor_database.obj) : warning LNK4099: 未找到 PDB“libprotobuf.pdb”(使用“libprotobufd.lib(descriptor_database.obj)”或在“C:\Users\36584\source\repos\p2pClient\a-sample-p2p-chat-program\x64\Debug\libprotobuf.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-libprotobufd.lib(dynamic_message.obj) : warning LNK4099: 未找到 PDB“libprotobuf.pdb”(使用“libprotobufd.lib(dynamic_message.obj)”或在“C:\Users\36584\source\repos\p2pClient\a-sample-p2p-chat-program\x64\Debug\libprotobuf.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-libprotobufd.lib(extension_set_heavy.obj) : warning LNK4099: 未找到 PDB“libprotobuf.pdb”(使用“libprotobufd.lib(extension_set_heavy.obj)”或在“C:\Users\36584\source\repos\p2pClient\a-sample-p2p-chat-program\x64\Debug\libprotobuf.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-libprotobufd.lib(generated_message_reflection.obj) : warning LNK4099: 未找到 PDB“libprotobuf.pdb”(使用“libprotobufd.lib(generated_message_reflection.obj)”或在“C:\Users\36584\source\repos\p2pClient\a-sample-p2p-chat-program\x64\Debug\libprotobuf.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-libprotobufd.lib(strtod.obj) : warning LNK4099: 未找到 PDB“libprotobuf.pdb”(使用“libprotobufd.lib(strtod.obj)”或在“C:\Users\36584\source\repos\p2pClient\a-sample-p2p-chat-program\x64\Debug\libprotobuf.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-libprotobufd.lib(tokenizer.obj) : warning LNK4099: 未找到 PDB“libprotobuf.pdb”(使用“libprotobufd.lib(tokenizer.obj)”或在“C:\Users\36584\source\repos\p2pClient\a-sample-p2p-chat-program\x64\Debug\libprotobuf.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-libprotobufd.lib(zero_copy_stream_impl.obj) : warning LNK4099: 未找到 PDB“libprotobuf.pdb”(使用“libprotobufd.lib(zero_copy_stream_impl.obj)”或在“C:\Users\36584\source\repos\p2pClient\a-sample-p2p-chat-program\x64\Debug\libprotobuf.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-libprotobufd.lib(map_field.obj) : warning LNK4099: 未找到 PDB“libprotobuf.pdb”(使用“libprotobufd.lib(map_field.obj)”或在“C:\Users\36584\source\repos\p2pClient\a-sample-p2p-chat-program\x64\Debug\libprotobuf.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-libprotobufd.lib(message.obj) : warning LNK4099: 未找到 PDB“libprotobuf.pdb”(使用“libprotobufd.lib(message.obj)”或在“C:\Users\36584\source\repos\p2pClient\a-sample-p2p-chat-program\x64\Debug\libprotobuf.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-libprotobufd.lib(reflection_ops.obj) : warning LNK4099: 未找到 PDB“libprotobuf.pdb”(使用“libprotobufd.lib(reflection_ops.obj)”或在“C:\Users\36584\source\repos\p2pClient\a-sample-p2p-chat-program\x64\Debug\libprotobuf.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-libprotobufd.lib(substitute.obj) : warning LNK4099: 未找到 PDB“libprotobuf.pdb”(使用“libprotobufd.lib(substitute.obj)”或在“C:\Users\36584\source\repos\p2pClient\a-sample-p2p-chat-program\x64\Debug\libprotobuf.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-libprotobufd.lib(text_format.obj) : warning LNK4099: 未找到 PDB“libprotobuf.pdb”(使用“libprotobufd.lib(text_format.obj)”或在“C:\Users\36584\source\repos\p2pClient\a-sample-p2p-chat-program\x64\Debug\libprotobuf.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-libprotobufd.lib(unknown_field_set.obj) : warning LNK4099: 未找到 PDB“libprotobuf.pdb”(使用“libprotobufd.lib(unknown_field_set.obj)”或在“C:\Users\36584\source\repos\p2pClient\a-sample-p2p-chat-program\x64\Debug\libprotobuf.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-libprotobufd.lib(wire_format.obj) : warning LNK4099: 未找到 PDB“libprotobuf.pdb”(使用“libprotobufd.lib(wire_format.obj)”或在“C:\Users\36584\source\repos\p2pClient\a-sample-p2p-chat-program\x64\Debug\libprotobuf.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+c:\users\36584\source\repos\p2pclient\a-sample-p2p-chat-program\p2pclient\p2pclient.cpp(10): warning C4068: 未知的杂注
+c:\users\36584\source\repos\p2pclient\a-sample-p2p-chat-program\p2pclient\p2pclient.cpp(65): warning C4244: “初始化”: 从“SOCKET”转换到“int”，可能丢失数据
+c:\users\36584\source\repos\p2pclient\a-sample-p2p-chat-program\p2pclient\p2pclient.cpp(170): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+c:\users\36584\source\repos\p2pclient\a-sample-p2p-chat-program\p2pclient\p2pclient.cpp(172): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+c:\users\36584\source\repos\p2pclient\a-sample-p2p-chat-program\p2pclient\p2pclient.cpp(197): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+c:\users\36584\source\repos\p2pclient\a-sample-p2p-chat-program\p2pclient\p2pclient.cpp(249): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+c:\users\36584\source\repos\p2pclient\a-sample-p2p-chat-program\p2pclient\p2pclient.cpp(287): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+c:\users\36584\source\repos\p2pclient\a-sample-p2p-chat-program\p2pclient\p2pclient.cpp(374): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+c:\users\36584\source\repos\p2pclient\a-sample-p2p-chat-program\p2pclient\p2pclient.cpp(415): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+c:\users\36584\source\repos\p2pclient\a-sample-p2p-chat-program\p2pclient\p2pclient.cpp(438): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+c:\users\36584\source\repos\p2pclient\a-sample-p2p-chat-program\p2pclient\p2pclient.cpp(584): warning C4101: “Command”: 未引用的局部变量
   p2pClient.vcxproj -> C:\Users\36584\source\repos\p2pClient\a-sample-p2p-chat-program\x64\Debug\p2pClient.exe

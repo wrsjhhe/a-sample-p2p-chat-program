@@ -45,6 +45,11 @@ class UserListNodeDefaultTypeInternal {
   ::google::protobuf::internal::ExplicitlyConstructed<UserListNode>
       _instance;
 } _UserListNode_default_instance_;
+class UserListDefaultTypeInternal {
+ public:
+  ::google::protobuf::internal::ExplicitlyConstructed<UserList>
+      _instance;
+} _UserList_default_instance_;
 class ServerToClientDefaultTypeInternal {
  public:
   ::google::protobuf::internal::ExplicitlyConstructed<ServerToClient>
@@ -165,6 +170,28 @@ void InitDefaultsUserListNode() {
   ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsUserListNodeImpl);
 }
 
+void InitDefaultsUserListImpl() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
+  ::google::protobuf::internal::InitProtobufDefaultsForceUnique();
+#else
+  ::google::protobuf::internal::InitProtobufDefaults();
+#endif  // GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
+  protobuf_Proto_2eproto::InitDefaultsUserListNode();
+  {
+    void* ptr = &::Proto::_UserList_default_instance_;
+    new (ptr) ::Proto::UserList();
+    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::Proto::UserList::InitAsDefaultInstance();
+}
+
+void InitDefaultsUserList() {
+  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
+  ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsUserListImpl);
+}
+
 void InitDefaultsServerToClientImpl() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
@@ -208,7 +235,7 @@ void InitDefaultsP2PMessage() {
   ::google::protobuf::GoogleOnceInit(&once, &InitDefaultsP2PMessageImpl);
 }
 
-::google::protobuf::Metadata file_level_metadata[7];
+::google::protobuf::Metadata file_level_metadata[8];
 
 const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
   ~0u,  // no _has_bits_
@@ -248,6 +275,12 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Proto::UserListNode, ip_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Proto::UserListNode, port_),
   ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Proto::UserList, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Proto::UserList, userlistnode_),
+  ~0u,  // no _has_bits_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::Proto::ServerToClient, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
@@ -269,8 +302,9 @@ static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_PROT
   { 13, -1, sizeof(::Proto::P2PTranslate)},
   { 19, -1, sizeof(::Proto::Message)},
   { 28, -1, sizeof(::Proto::UserListNode)},
-  { 36, -1, sizeof(::Proto::ServerToClient)},
-  { 43, -1, sizeof(::Proto::P2PMessage)},
+  { 36, -1, sizeof(::Proto::UserList)},
+  { 42, -1, sizeof(::Proto::ServerToClient)},
+  { 49, -1, sizeof(::Proto::P2PMessage)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -279,6 +313,7 @@ static ::google::protobuf::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::google::protobuf::Message*>(&::Proto::_P2PTranslate_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::Proto::_Message_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::Proto::_UserListNode_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&::Proto::_UserList_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::Proto::_ServerToClient_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::Proto::_P2PMessage_default_instance_),
 };
@@ -299,7 +334,7 @@ void protobuf_AssignDescriptorsOnce() {
 void protobuf_RegisterTypes(const ::std::string&) GOOGLE_PROTOBUF_ATTRIBUTE_COLD;
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 7);
+  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 8);
 }
 
 void AddDescriptorsImpl() {
@@ -314,14 +349,15 @@ void AddDescriptorsImpl() {
       "\024.Proto.LogoutMessage\022-\n\020translatemessag"
       "e\030\004 \001(\0132\023.Proto.P2PTranslate\":\n\014UserList"
       "Node\022\020\n\010userName\030\001 \001(\t\022\n\n\002ip\030\002 \001(\r\022\014\n\004po"
-      "rt\030\003 \001(\r\"I\n\016ServerToClient\022\024\n\014iMessageTy"
-      "pe\030\001 \001(\005\022!\n\004user\030\002 \001(\0132\023.Proto.UserListN"
-      "ode\"D\n\nP2PMessage\022\024\n\014iMessageType\030\001 \001(\005\022"
-      "\022\n\niStringLen\030\002 \001(\005\022\014\n\004Port\030\003 \001(\rb\006proto"
-      "3"
+      "rt\030\003 \001(\r\"5\n\010UserList\022)\n\014userListNode\030\001 \003"
+      "(\0132\023.Proto.UserListNode\"I\n\016ServerToClien"
+      "t\022\024\n\014iMessageType\030\001 \001(\005\022!\n\004user\030\002 \001(\0132\023."
+      "Proto.UserListNode\"D\n\nP2PMessage\022\024\n\014iMes"
+      "sageType\030\001 \001(\005\022\022\n\niStringLen\030\002 \001(\005\022\014\n\004Po"
+      "rt\030\003 \001(\rb\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 521);
+      descriptor, 576);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "Proto.proto", &protobuf_RegisterTypes);
 }
@@ -1883,6 +1919,247 @@ void UserListNode::InternalSwap(UserListNode* other) {
 }
 
 ::google::protobuf::Metadata UserListNode::GetMetadata() const {
+  protobuf_Proto_2eproto::protobuf_AssignDescriptorsOnce();
+  return ::protobuf_Proto_2eproto::file_level_metadata[kIndexInFileMessages];
+}
+
+
+// ===================================================================
+
+void UserList::InitAsDefaultInstance() {
+}
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int UserList::kUserListNodeFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+UserList::UserList()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    ::protobuf_Proto_2eproto::InitDefaultsUserList();
+  }
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:Proto.UserList)
+}
+UserList::UserList(const UserList& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(NULL),
+      userlistnode_(from.userlistnode_),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:Proto.UserList)
+}
+
+void UserList::SharedCtor() {
+  _cached_size_ = 0;
+}
+
+UserList::~UserList() {
+  // @@protoc_insertion_point(destructor:Proto.UserList)
+  SharedDtor();
+}
+
+void UserList::SharedDtor() {
+}
+
+void UserList::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* UserList::descriptor() {
+  ::protobuf_Proto_2eproto::protobuf_AssignDescriptorsOnce();
+  return ::protobuf_Proto_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
+}
+
+const UserList& UserList::default_instance() {
+  ::protobuf_Proto_2eproto::InitDefaultsUserList();
+  return *internal_default_instance();
+}
+
+UserList* UserList::New(::google::protobuf::Arena* arena) const {
+  UserList* n = new UserList;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void UserList::Clear() {
+// @@protoc_insertion_point(message_clear_start:Proto.UserList)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  userlistnode_.Clear();
+  _internal_metadata_.Clear();
+}
+
+bool UserList::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Proto.UserList)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // repeated .Proto.UserListNode userListNode = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(input, add_userlistnode()));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Proto.UserList)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Proto.UserList)
+  return false;
+#undef DO_
+}
+
+void UserList::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Proto.UserList)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // repeated .Proto.UserListNode userListNode = 1;
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->userlistnode_size()); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->userlistnode(static_cast<int>(i)), output);
+  }
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Proto.UserList)
+}
+
+::google::protobuf::uint8* UserList::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
+  // @@protoc_insertion_point(serialize_to_array_start:Proto.UserList)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // repeated .Proto.UserListNode userListNode = 1;
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->userlistnode_size()); i < n; i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageToArray(
+        1, this->userlistnode(static_cast<int>(i)), deterministic, target);
+  }
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Proto.UserList)
+  return target;
+}
+
+size_t UserList::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Proto.UserList)
+  size_t total_size = 0;
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()));
+  }
+  // repeated .Proto.UserListNode userListNode = 1;
+  {
+    unsigned int count = static_cast<unsigned int>(this->userlistnode_size());
+    total_size += 1UL * count;
+    for (unsigned int i = 0; i < count; i++) {
+      total_size +=
+        ::google::protobuf::internal::WireFormatLite::MessageSize(
+          this->userlistnode(static_cast<int>(i)));
+    }
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void UserList::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:Proto.UserList)
+  GOOGLE_DCHECK_NE(&from, this);
+  const UserList* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const UserList>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:Proto.UserList)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:Proto.UserList)
+    MergeFrom(*source);
+  }
+}
+
+void UserList::MergeFrom(const UserList& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:Proto.UserList)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  userlistnode_.MergeFrom(from.userlistnode_);
+}
+
+void UserList::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:Proto.UserList)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void UserList::CopyFrom(const UserList& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Proto.UserList)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool UserList::IsInitialized() const {
+  return true;
+}
+
+void UserList::Swap(UserList* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void UserList::InternalSwap(UserList* other) {
+  using std::swap;
+  userlistnode_.InternalSwap(&other->userlistnode_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata UserList::GetMetadata() const {
   protobuf_Proto_2eproto::protobuf_AssignDescriptorsOnce();
   return ::protobuf_Proto_2eproto::file_level_metadata[kIndexInFileMessages];
 }

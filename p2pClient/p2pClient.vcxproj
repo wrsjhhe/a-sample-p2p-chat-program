@@ -70,7 +70,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
+    <IncludePath>$(BOOST_INCLUDEDIR);$(ProjectDir);$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -124,12 +124,16 @@
   <ItemGroup>
     <ClCompile Include="p2pClient.cpp" />
     <ClCompile Include="Proto.pb.cc" />
+    <ClCompile Include="sock.cpp" />
+    <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Exception.h" />
     <ClInclude Include="Global.h" />
     <ClInclude Include="Proto.h" />
     <ClInclude Include="Proto.pb.h" />
+    <ClInclude Include="sock.h" />
+    <ClInclude Include="utils.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Proto.proto" />
