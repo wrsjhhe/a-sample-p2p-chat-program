@@ -15,7 +15,8 @@
 #include <list>
 using namespace std;
 
-typedef list<Proto::UserListNode> UserList;
+//typedef list<Proto::UserListNode> UserList;
+typedef Proto::UserList UserList;
 typedef Proto::UserListNode Node;
 typedef Proto::Message Message;
 typedef Proto::P2PMessage P2PMessage;
@@ -35,11 +36,13 @@ int mksock(int type)
 
 Node getUser(const char* userName)
 {
-    for(auto& user : ClientList)
+    int length = ClientList.userlistnode_size();
+    for(int i = 0;i<length;i++)
     {
-        if(strcmp((user.username().c_str()),userName) == 0)
-            return user;
+        if(strcmp((ClientList.userlistnode(i).username().c_str()),userName) == 0)
+            return ClientList.userlistnode(i);
     }
+
     throw Exception("not find this user");
 }
 
@@ -134,15 +137,17 @@ int main(int argc,char* argv[])
                         std::cout<<recvbuf.loginmember().username()<<std::endl;
 
                         bool bFound = false;
-                        for(auto& user : ClientList)
+
+                        int length = ClientList.userlistnode_size();
+                        for(int i = 0;i<length;i++)
                         {
-                            if(user.username() == recvbuf.loginmember().username())
+                            if(ClientList.userlistnode(i).username() == recvbuf.loginmember().username())
                             {
                                 bFound = true;
                                 break;
                             }
-
                         }
+
 
                         if(!bFound)
                         {
@@ -151,20 +156,17 @@ int main(int argc,char* argv[])
                                    inet_ntoa(sender.sin_addr),
                                    ntohs(sender.sin_port)
                             );
-                            ClientList.emplace_back(*currentUser.get());
+                            auto newNode = ClientList.add_userlistnode();
+                            *newNode = *currentUser.get();
                         }
 
-                        int nodeCount = ClientList.size();
-                        sendto(primaryUDP,(const char*)&nodeCount,sizeof(int),0,(const sockaddr*)&sender,sizeof(sender));
+                        length = ClientList.userlistnode_size();
+                        sendto(primaryUDP,(const char*)&length,sizeof(int),0,(const sockaddr*)&sender,sizeof(sender));
 
 
-                        for(const auto& user : ClientList)
-                        {
-                            string data;
-                            user.SerializeToString(&data);
-                            sendto(primaryUDP,data.c_str(),data.length(),0,(const sockaddr*)&sender,sizeof(sender));
-                            std::cout<<user.port()<<std::endl;
-                        }
+                        string data;
+                        ClientList.SerializeToString(&data);
+                        sendto(primaryUDP,data.c_str(),data.length(),0,(const sockaddr*)&sender,sizeof(sender));
 
 
                         printf("send user list information to: %s <-> %s:%d\n",
@@ -178,14 +180,14 @@ int main(int argc,char* argv[])
                     case LOGOUT:
                     {
                         printf("has a user logout : %s <-> %s:%d\n", recvbuf.logoutmember().username().c_str(), inet_ntoa( sender.sin_addr ), ntohs(sender.sin_port) );
-                       for(auto iter = ClientList.begin();iter!=ClientList.end();iter++)
-                       {
-                           if( iter->username()== recvbuf.logoutmember().username())
-                           {
-                               ClientList.erase(iter++);
-                               break;
-                           }
-                       }
+//                       for(auto iter = ClientList.begin();iter!=ClientList.end();iter++)
+//                       {
+//                           if( iter->username()== recvbuf.logoutmember().username())
+//                           {
+//                               ClientList.erase(iter++);
+//                               break;
+//                           }
+//                       }
                         break;
                     }
                     case P2PTRANS:
@@ -222,17 +224,15 @@ int main(int argc,char* argv[])
 
                         sendto(primaryUDP, data.c_str(),data.length(), 0, (const sockaddr*)&sender, sizeof(sender));
 
-                        int nodecount = (int)ClientList.size();
+                        int nodecount = ClientList.userlistnode_size();
                         sendto(primaryUDP, (const char*)&nodecount, sizeof(int), 0, (const sockaddr*)&sender, sizeof(sender));
 
-                        for(UserList::iterator UserIterator=ClientList.begin();
-                            UserIterator!=ClientList.end();
-                            ++UserIterator)
-                        {
-                            data.clear();
-                            (*UserIterator).SerializeToString(&data);
-                            sendto(primaryUDP,data.c_str(), data.length(), 0, (const sockaddr*)&sender, sizeof(sender));
-                        }
+
+
+                        data.clear();
+                        ClientList.SerializeToString(&data);
+                        sendto(primaryUDP,data.c_str(),data.length(),0,(const sockaddr*)&sender,sizeof(sender));
+                        
 
                         printf("send user list information to: %s <-> %s:%d\n", recvbuf.loginmember().username().c_str(), inet_ntoa( sender.sin_addr ), ntohs(sender.sin_port) );
 

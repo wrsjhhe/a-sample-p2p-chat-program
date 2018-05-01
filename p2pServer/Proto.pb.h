@@ -38,7 +38,7 @@ namespace protobuf_Proto_2eproto {
 struct TableStruct {
   static const ::google::protobuf::internal::ParseTableField entries[];
   static const ::google::protobuf::internal::AuxillaryParseTableField aux[];
-  static const ::google::protobuf::internal::ParseTable schema[7];
+  static const ::google::protobuf::internal::ParseTable schema[8];
   static const ::google::protobuf::internal::FieldMetadata field_metadata[];
   static const ::google::protobuf::internal::SerializationTable serialization_table[];
   static const ::google::protobuf::uint32 offsets[];
@@ -64,6 +64,9 @@ extern P2PTranslateDefaultTypeInternal _P2PTranslate_default_instance_;
 class ServerToClient;
 class ServerToClientDefaultTypeInternal;
 extern ServerToClientDefaultTypeInternal _ServerToClient_default_instance_;
+class UserList;
+class UserListDefaultTypeInternal;
+extern UserListDefaultTypeInternal _UserList_default_instance_;
 class UserListNode;
 class UserListNodeDefaultTypeInternal;
 extern UserListNodeDefaultTypeInternal _UserListNode_default_instance_;
@@ -76,6 +79,7 @@ template<> ::Proto::Message* Arena::CreateMaybeMessage<::Proto::Message>(Arena*)
 template<> ::Proto::P2PMessage* Arena::CreateMaybeMessage<::Proto::P2PMessage>(Arena*);
 template<> ::Proto::P2PTranslate* Arena::CreateMaybeMessage<::Proto::P2PTranslate>(Arena*);
 template<> ::Proto::ServerToClient* Arena::CreateMaybeMessage<::Proto::ServerToClient>(Arena*);
+template<> ::Proto::UserList* Arena::CreateMaybeMessage<::Proto::UserList>(Arena*);
 template<> ::Proto::UserListNode* Arena::CreateMaybeMessage<::Proto::UserListNode>(Arena*);
 }  // namespace protobuf
 }  // namespace google
@@ -698,6 +702,115 @@ class UserListNode : public ::google::protobuf::Message /* @@protoc_insertion_po
 };
 // -------------------------------------------------------------------
 
+class UserList : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:Proto.UserList) */ {
+ public:
+  UserList();
+  virtual ~UserList();
+
+  UserList(const UserList& from);
+
+  inline UserList& operator=(const UserList& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  UserList(UserList&& from) noexcept
+    : UserList() {
+    *this = ::std::move(from);
+  }
+
+  inline UserList& operator=(UserList&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const UserList& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const UserList* internal_default_instance() {
+    return reinterpret_cast<const UserList*>(
+               &_UserList_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    5;
+
+  void Swap(UserList* other);
+  friend void swap(UserList& a, UserList& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline UserList* New() const final {
+    return CreateMaybeMessage<UserList>(NULL);
+  }
+
+  UserList* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<UserList>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const UserList& from);
+  void MergeFrom(const UserList& from);
+  void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(UserList* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated .Proto.UserListNode userListNode = 1;
+  int userlistnode_size() const;
+  void clear_userlistnode();
+  static const int kUserListNodeFieldNumber = 1;
+  ::Proto::UserListNode* mutable_userlistnode(int index);
+  ::google::protobuf::RepeatedPtrField< ::Proto::UserListNode >*
+      mutable_userlistnode();
+  const ::Proto::UserListNode& userlistnode(int index) const;
+  ::Proto::UserListNode* add_userlistnode();
+  const ::google::protobuf::RepeatedPtrField< ::Proto::UserListNode >&
+      userlistnode() const;
+
+  // @@protoc_insertion_point(class_scope:Proto.UserList)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::RepeatedPtrField< ::Proto::UserListNode > userlistnode_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  friend struct ::protobuf_Proto_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
 class ServerToClient : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:Proto.ServerToClient) */ {
  public:
   ServerToClient();
@@ -733,7 +846,7 @@ class ServerToClient : public ::google::protobuf::Message /* @@protoc_insertion_
                &_ServerToClient_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    6;
 
   void Swap(ServerToClient* other);
   friend void swap(ServerToClient& a, ServerToClient& b) {
@@ -849,7 +962,7 @@ class P2PMessage : public ::google::protobuf::Message /* @@protoc_insertion_poin
                &_P2PMessage_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    7;
 
   void Swap(P2PMessage* other);
   friend void swap(P2PMessage& a, P2PMessage& b) {
@@ -1427,6 +1540,40 @@ inline void UserListNode::set_port(::google::protobuf::uint32 value) {
 
 // -------------------------------------------------------------------
 
+// UserList
+
+// repeated .Proto.UserListNode userListNode = 1;
+inline int UserList::userlistnode_size() const {
+  return userlistnode_.size();
+}
+inline void UserList::clear_userlistnode() {
+  userlistnode_.Clear();
+}
+inline ::Proto::UserListNode* UserList::mutable_userlistnode(int index) {
+  // @@protoc_insertion_point(field_mutable:Proto.UserList.userListNode)
+  return userlistnode_.Mutable(index);
+}
+inline ::google::protobuf::RepeatedPtrField< ::Proto::UserListNode >*
+UserList::mutable_userlistnode() {
+  // @@protoc_insertion_point(field_mutable_list:Proto.UserList.userListNode)
+  return &userlistnode_;
+}
+inline const ::Proto::UserListNode& UserList::userlistnode(int index) const {
+  // @@protoc_insertion_point(field_get:Proto.UserList.userListNode)
+  return userlistnode_.Get(index);
+}
+inline ::Proto::UserListNode* UserList::add_userlistnode() {
+  // @@protoc_insertion_point(field_add:Proto.UserList.userListNode)
+  return userlistnode_.Add();
+}
+inline const ::google::protobuf::RepeatedPtrField< ::Proto::UserListNode >&
+UserList::userlistnode() const {
+  // @@protoc_insertion_point(field_list:Proto.UserList.userListNode)
+  return userlistnode_;
+}
+
+// -------------------------------------------------------------------
+
 // ServerToClient
 
 // int32 iMessageType = 1;
@@ -1546,6 +1693,8 @@ inline void P2PMessage::set_port(::google::protobuf::uint32 value) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
